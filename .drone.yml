@@ -1,0 +1,17 @@
+kind: pipeline
+name: default
+
+steps:
+- name: build
+  image: golang:-alpine
+  commands:
+  - go build
+  - go test -short
+
+- name: integration
+  image: golang:-alpine
+  commands:
+  - go test -v
+  when:
+    event:
+    - pull_request
